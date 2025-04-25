@@ -1,0 +1,35 @@
+
+import React from 'react';
+import { IPOStatus } from '@/types/ipo';
+
+interface StatusBadgeProps {
+  status: IPOStatus;
+  className?: string;
+}
+
+const StatusBadge: React.FC<StatusBadgeProps> = ({ status, className = '' }) => {
+  const getStatusColor = () => {
+    switch (status) {
+      case 'Upcoming':
+        return 'bg-blue-100 text-blue-700';
+      case 'New Listed':
+        return 'bg-red-100 text-red-700';
+      case 'Ongoing':
+        return 'bg-green-100 text-green-700';
+      case 'Commiting':
+        return 'bg-yellow-100 text-yellow-700';
+      case 'Closed':
+        return 'bg-gray-100 text-gray-700';
+      default:
+        return 'bg-gray-100 text-gray-700';
+    }
+  };
+
+  return (
+    <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor()} ${className}`}>
+      {status}
+    </span>
+  );
+};
+
+export default StatusBadge;
