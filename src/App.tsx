@@ -9,6 +9,7 @@ import { AuthProvider } from "./contexts/AuthContext";
 // Client Pages
 import Home from "./pages/client/Home";
 import IPODetail from "./pages/client/IPODetail";
+import DocumentInfo from "./pages/client/DocumentInfo"; // New page for RHP/DRHP info
 import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
 
@@ -32,6 +33,7 @@ const App = () => (
             {/* Client Routes */}
             <Route path="/" element={<Home />} />
             <Route path="/ipo/:id" element={<IPODetail />} />
+            <Route path="/documents" element={<DocumentInfo />} /> {/* New route */}
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
 

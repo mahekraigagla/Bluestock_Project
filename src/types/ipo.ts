@@ -19,6 +19,12 @@ export interface IPO {
   currentReturn: number | null;
   rhpUrl: string | null;
   drhpUrl: string | null;
+  subscriptionStatus?: {
+    qib?: number | null;
+    hni?: number | null;
+    retail?: number | null;
+    total?: number | null;
+  };
 }
 
 export interface User {
@@ -26,4 +32,11 @@ export interface User {
   name: string;
   email: string;
   role: 'admin' | 'client';
+}
+
+export interface IPODocument {
+  name: string;
+  description: string;
+  url: string;
+  type: 'RHP' | 'DRHP';
 }

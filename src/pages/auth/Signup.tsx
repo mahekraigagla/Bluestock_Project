@@ -8,11 +8,19 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
+import { 
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const Signup = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState<'client' | 'admin'>('client');
   const [showPassword, setShowPassword] = useState(false);
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -45,12 +53,17 @@ const Signup = () => {
     setIsLoading(true);
     
     try {
-      await signup(name, email, password);
+      await signup(name, email, password, role);
       toast({
         title: "Success",
         description: "Your account has been created",
       });
-      navigate('/');
+      // Redirect based on role
+      if (role === 'admin') {
+        navigate('/admin');
+      } else {
+        navigate('/');
+      }
     } catch (error) {
       toast({
         title: "Error",
@@ -69,15 +82,19 @@ const Signup = () => {
           <div className="flex justify-center">
             <Logo size="large" />
           </div>
+          <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
+            Create your BlueStock account
+          </h2>
+          <p className="mt-2 text-sm text-gray-600">
+            Get started with your IPO tracking journey
+          </p>
         </div>
         
         <div className="bg-white p-8 rounded-lg shadow-md">
-          <h2 className="text-2xl font-bold text-center mb-6">Create an account</h2>
-          
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
               <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                Name
+                Full Name
               </label>
               <Input
                 id="name"
@@ -131,6 +148,24 @@ const Signup = () => {
                 </Button>
               </div>
             </div>
+
+            <div className="space-y-2">
+              <label htmlFor="role" className="block text-sm font-medium text-gray-700">
+                Account Type
+              </label>
+              <Select value={role} onValueChange={(value: 'client' | 'admin') => setRole(value)}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select your account type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="client">Client (View IPOs)</SelectItem>
+                  <SelectItem value="admin">Admin (Manage IPOs)</SelectItem>
+                </SelectContent>
+              </Select>
+              <p className="text-xs text-gray-500">
+                Note: In a real application, admin accounts would typically require approval
+              </p>
+            </div>
             
             <div className="flex items-start">
               <div className="flex items-center h-5">
@@ -146,6 +181,10 @@ const Signup = () => {
                   By continuing, you agree to our{' '}
                   <a href="#" className="text-bluestock-600 hover:text-bluestock-500">
                     terms of service
+                  </a>{' '}
+                  and{' '}
+                  <a href="#" className="text-bluestock-600 hover:text-bluestock-500">
+                    privacy policy
                   </a>
                   .
                 </label>
@@ -158,7 +197,7 @@ const Signup = () => {
                 className="w-full bg-bluestock-600 hover:bg-bluestock-700"
                 disabled={isLoading}
               >
-                {isLoading ? "Signing up..." : "Sign up"}
+                {isLoading ? "Creating account..." : "Sign up"}
               </Button>
             </div>
           </form>

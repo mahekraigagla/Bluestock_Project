@@ -14,16 +14,14 @@ const Logo: React.FC<LogoProps> = ({ size = 'medium' }) => {
 
   return (
     <Link to="/" className="flex items-center">
-      <div className="relative flex items-center">
-        <svg className={`${sizes[size]} text-bluestock-600`} viewBox="0 0 50 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M10 4L18 12L10 20" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
-          <path d="M25 4L33 12L25 20" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
-          <path d="M40 4L48 12L40 20" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-        <span className={`ml-2 font-bold ${size === 'small' ? 'text-xl' : size === 'medium' ? 'text-2xl' : 'text-3xl'}`}>
-          BLUESTOCK
-        </span>
-      </div>
+      <img 
+        src="/lovable-uploads/8d2838d1-43d6-4fdd-81be-5d83e977e560.png" 
+        alt="BlueStock Logo" 
+        className={`${sizes[size]} mr-2`} 
+      />
+      <span className={`font-bold ${size === 'small' ? 'text-xl' : size === 'medium' ? 'text-2xl' : 'text-3xl'}`}>
+        BLUESTOCK
+      </span>
     </Link>
   );
 };

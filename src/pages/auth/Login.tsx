@@ -38,9 +38,15 @@ const Login = () => {
       await login(email, password);
       toast({
         title: "Success",
-        description: "You have successfully logged in",
+        description: "Welcome back to BlueStock!",
       });
-      navigate('/');
+      
+      // Redirect based on role (contained in email for demo)
+      if (email.includes('admin')) {
+        navigate('/admin');
+      } else {
+        navigate('/');
+      }
     } catch (error) {
       toast({
         title: "Error",
@@ -59,6 +65,12 @@ const Login = () => {
           <div className="flex justify-center">
             <Logo size="large" />
           </div>
+          <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
+            Sign in to your account
+          </h2>
+          <p className="mt-2 text-sm text-gray-600">
+            Get access to your IPO tracker dashboard
+          </p>
         </div>
         
         <div className="bg-white p-8 rounded-lg shadow-md">
@@ -70,11 +82,14 @@ const Login = () => {
               <Input
                 id="email"
                 type="email"
-                placeholder="johndoe@gmail.com"
+                placeholder="hello@bluestock.in"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
+              <p className="text-xs text-gray-500">
+                For demo: use an email with "admin" to login as admin
+              </p>
             </div>
             
             <div className="space-y-2">

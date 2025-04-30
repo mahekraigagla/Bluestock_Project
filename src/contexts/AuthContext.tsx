@@ -7,7 +7,7 @@ interface AuthContextType {
   isLoading: boolean;
   isAuthenticated: boolean;
   login: (email: string, password: string) => Promise<void>;
-  signup: (name: string, email: string, password: string) => Promise<void>;
+  signup: (name: string, email: string, password: string, role: 'admin' | 'client') => Promise<void>;
   logout: () => void;
 }
 
@@ -37,7 +37,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const role = isAdmin ? 'admin' : 'client';
       
       const user: User = {
-        id: '1',
+        id: crypto.randomUUID(),
         name: email.split('@')[0],
         email,
         role
@@ -53,17 +53,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  const signup = async (name: string, email: string, password: string) => {
+  const signup = async (name: string, email: string, password: string, role: 'admin' | 'client' = 'client') => {
     setIsLoading(true);
     try {
       // In a real app, this would call an API endpoint
       // For demo, we'll simulate registration
       
       const user: User = {
-        id: '1',
+        id: crypto.randomUUID(),
         name,
         email,
-        role: 'client' // Default role for new signups
+        role
       };
       
       localStorage.setItem('bluestock_user', JSON.stringify(user));
