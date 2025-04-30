@@ -1,7 +1,4 @@
 
-## Project info
-
-**URL**: https://lovable.dev/projects/560c538e-effa-4ba7-b581-49380debbd0a
 
 Follow these steps:
 
