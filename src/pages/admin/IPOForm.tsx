@@ -38,6 +38,12 @@ const IPOForm = () => {
     currentReturn: null,
     rhpUrl: '',
     drhpUrl: '',
+    subscriptionStatus: {
+      qib: null,
+      hni: null,
+      retail: null,
+      total: null
+    }
   });
   
   const [isLoading, setIsLoading] = useState(false);
@@ -57,6 +63,12 @@ const IPOForm = () => {
             openDate: data.openDate ? new Date(data.openDate).toISOString().split('T')[0] : '',
             closeDate: data.closeDate ? new Date(data.closeDate).toISOString().split('T')[0] : '',
             listingDate: data.listingDate ? new Date(data.listingDate).toISOString().split('T')[0] : '',
+            subscriptionStatus: data.subscriptionStatus || {
+              qib: null,
+              hni: null,
+              retail: null,
+              total: null
+            }
           });
         }
       } catch (error) {
@@ -86,6 +98,19 @@ const IPOForm = () => {
   
   const handleSelectChange = (name: string, value: string) => {
     setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubscriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    const subscriptionField = name.split('.')[1]; // Extract the field name after 'subscriptionStatus.'
+    
+    setFormData(prev => ({
+      ...prev,
+      subscriptionStatus: {
+        ...prev.subscriptionStatus,
+        [subscriptionField]: value ? parseFloat(value) : null
+      }
+    }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -272,6 +297,63 @@ const IPOForm = () => {
                   <SelectItem value="Closed">Closed</SelectItem>
                 </SelectContent>
               </Select>
+            </div>
+          </div>
+          
+          <div className="border-t pt-6 mt-8">
+            <h3 className="text-lg font-medium mb-4">SUBSCRIPTION STATUS</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <Label htmlFor="subscriptionStatus.qib">QIB Subscription</Label>
+                <Input 
+                  id="subscriptionStatus.qib" 
+                  name="subscriptionStatus.qib" 
+                  type="number"
+                  step="0.01"
+                  placeholder="0.00x"
+                  value={formData.subscriptionStatus?.qib === null ? '' : formData.subscriptionStatus?.qib} 
+                  onChange={handleSubscriptionChange}
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="subscriptionStatus.hni">HNI Subscription</Label>
+                <Input 
+                  id="subscriptionStatus.hni" 
+                  name="subscriptionStatus.hni" 
+                  type="number"
+                  step="0.01"
+                  placeholder="0.00x"
+                  value={formData.subscriptionStatus?.hni === null ? '' : formData.subscriptionStatus?.hni} 
+                  onChange={handleSubscriptionChange}
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="subscriptionStatus.retail">Retail Subscription</Label>
+                <Input 
+                  id="subscriptionStatus.retail" 
+                  name="subscriptionStatus.retail" 
+                  type="number"
+                  step="0.01"
+                  placeholder="0.00x"
+                  value={formData.subscriptionStatus?.retail === null ? '' : formData.subscriptionStatus?.retail} 
+                  onChange={handleSubscriptionChange}
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="subscriptionStatus.total">Total Subscription</Label>
+                <Input 
+                  id="subscriptionStatus.total" 
+                  name="subscriptionStatus.total" 
+                  type="number"
+                  step="0.01"
+                  placeholder="0.00x"
+                  value={formData.subscriptionStatus?.total === null ? '' : formData.subscriptionStatus?.total} 
+                  onChange={handleSubscriptionChange}
+                />
+              </div>
             </div>
           </div>
           

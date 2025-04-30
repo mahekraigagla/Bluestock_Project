@@ -1,4 +1,3 @@
-
 import { IPO } from '@/types/ipo';
 
 // Demo data based on the screenshots
@@ -20,7 +19,13 @@ const demoIpos: IPO[] = [
     currentMarketPrice: null,
     currentReturn: null,
     rhpUrl: 'https://example.com/rhp.pdf',
-    drhpUrl: 'https://example.com/drhp.pdf'
+    drhpUrl: 'https://example.com/drhp.pdf',
+    subscriptionStatus: {
+      qib: 1.5,
+      hni: 2.3,
+      retail: 0.8,
+      total: 1.2
+    }
   },
   {
     id: '2',
@@ -39,7 +44,13 @@ const demoIpos: IPO[] = [
     currentMarketPrice: null,
     currentReturn: null,
     rhpUrl: 'https://example.com/rhp.pdf',
-    drhpUrl: 'https://example.com/drhp.pdf'
+    drhpUrl: 'https://example.com/drhp.pdf',
+    subscriptionStatus: {
+      qib: 2.1,
+      hni: 1.8,
+      retail: 1.2,
+      total: 1.6
+    }
   },
   {
     id: '3',
@@ -140,7 +151,7 @@ export const getIpos = async (): Promise<IPO[]> => {
   // In a real app, this would call an API endpoint
   return new Promise((resolve) => {
     setTimeout(() => {
-      resolve(demoIpos);
+      resolve(ipos);
     }, 500);
   });
 };
@@ -149,7 +160,7 @@ export const getIpoById = async (id: string): Promise<IPO | undefined> => {
   // In a real app, this would call an API endpoint
   return new Promise((resolve) => {
     setTimeout(() => {
-      const ipo = demoIpos.find(ipo => ipo.id === id);
+      const ipo = ipos.find(ipo => ipo.id === id);
       resolve(ipo);
     }, 500);
   });
